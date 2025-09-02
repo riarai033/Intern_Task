@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dummy E-Commerce Store</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f5f5f5; margin:0; }
+    header { background:#0077cc; color:white; padding:20px; text-align:center; }
+    .products { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:20px; }
+    .product { background:white; border:1px solid #ddd; border-radius:10px; padding:15px; width:220px; text-align:center; }
+    .product img { width:200px; height:200px; object-fit:cover; border-radius:10px; margin-bottom:10px; }
+    .product button { background:#0077cc; color:white; border:none; padding:10px; width:100%; cursor:pointer; border-radius:5px; }
+    .product button:hover { background:#005fa3; }
+    footer { background:#333; color:white; text-align:center; padding:15px; margin-top:20px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>My Dummy Store</h1>
+</header>
+
+<div class="products">
+  <!-- Backpack -->
+  <div class="product">
+    <img src="https://images.pexels.com/photos/3731256/pexels-photo-3731256.jpeg" alt="Backpack">
+    <h2>Stylish Backpack</h2>
+    <p>$45</p>
+    <button>Add to Cart</button>
+  </div>
+
+  <!-- Shoes -->
+  <div class="product">
+    <img src="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg" alt="Shoes">
+    <h2>Running Shoes</h2>
+    <p>$60</p>
+    <button>Add to Cart</button>
+  </div>
+
+  <!-- Headphones -->
+  <div class="product">
+    <img src="https://images.pexels.com/photos/159376/headphones-music-audio-sound-159376.jpeg" alt="Headphones">
+    <h2>Wireless Headphones</h2>
+    <p>$80</p>
+    <button>Add to Cart</button>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 Dummy Store
+</footer>
+
+<script>
+  document.querySelectorAll('.product button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parent = btn.parentElement;
+      const name = parent.querySelector('h2').innerText;
+      const price = parent.querySelector('p').innerText;
+      alert(`${name} (${price}) added to cart!`);
+    });
+  });
+</script>
+
+</body>
+</html>
