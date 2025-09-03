@@ -96,9 +96,9 @@
 
   <script>
     const PRODUCTS = [
-      {id:1,title:'Classic Backpack',price:1299,desc:'Durable backpack for everyday use',img:'https://via.placeholder.com/640x480.png?text=Backpack'},
-      {id:2,title:'Matte Lipstick Set',price:799,desc:'Long-lasting matte lip colors (set of 3)',img:'https://via.placeholder.com/640x480.png?text=Lipstick'},
-      {id:3,title:'Running Shoes',price:2599,desc:'Lightweight running shoes for daily training',img:'https://via.placeholder.com/640x480.png?text=Shoes'}
+      {id:1, title:'Classic Backpack', price:1299, desc:'Durable backpack', img:'https://cdn.pixabay.com/photo/2017/03/20/16/36/backpack-2169017_640.png'},
+      {id:2, title:'Matte Lipstick Set', price:799, desc:'Long-lasting matte lip colors', img:'https://cdn.pixabay.com/photo/2017/05/10/22/36/lipstick-2302826_640.png'},
+      {id:3, title:'Running Shoes', price:2599, desc:'Lightweight running shoes', img:'https://cdn.pixabay.com/photo/2016/03/31/18/14/shoes-1297062_640.png'}
     ];
 
     const productsEl = document.getElementById('products');
@@ -125,71 +125,4 @@
       list.forEach(p=>{
         const card = document.createElement('article');
         card.className='card';
-        card.innerHTML = `\n          <img loading="lazy" src="${p.img}" alt="${p.title}"/>\n          <div class="body">\n            <div class="title">${p.title}</div>\n            <div class="meta">${p.desc}</div>\n            <div style=\"display:flex;justify-content:space-between;align-items:center;\">\n              <div class=\"price\">₹${p.price}</div>\n            </div>\n            <div class=\"actions\">\n              <button class=\"btn-ghost\" data-action=\"view\">Quick view</button>\n              <button class=\"btn-primary\" data-action=\"add\">Add to cart</button>\n            </div>\n          </div>`;
-        const viewBtn = card.querySelector('[data-action=view]');
-        const addBtn = card.querySelector('[data-action=add]');
-        viewBtn.addEventListener('click',()=>openModal(p));
-        addBtn.addEventListener('click',()=>addToCart(p.id));
-        productsEl.appendChild(card);
-      })
-    }
-
-    function openModal(p){
-      lastModalProduct = p;
-      modalImg.src = p.img;
-      modalTitle.textContent = p.title;
-      modalDesc.textContent = p.desc;
-      modalPrice.textContent = '₹' + p.price;
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden','false');
-    }
-
-    modal.addEventListener('click',(e)=>{ if(e.target===modal) { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); } });
-    modalAdd.addEventListener('click',()=>{ if(lastModalProduct) addToCart(lastModalProduct.id); modal.classList.remove('open'); });
-
-    function addToCart(id){
-      if(!CART[id]) CART[id]=0; CART[id]+=1; updateCartUI();
-    }
-
-    function updateCartUI(){
-      const items = Object.keys(CART).map(k=> ({...PRODUCTS.find(p=>p.id==k),qty:CART[k]}));
-      cartCount.textContent = items.reduce((s,i)=>s+i.qty,0);
-      cartContent.innerHTML = '';
-      let total = 0;
-      if(items.length===0){ cartContent.innerHTML = '<div style="padding:12px;color:var(--muted)">Your cart is empty</div>'; }
-      items.forEach(it=>{
-        total += it.price * it.qty;
-        const div = document.createElement('div'); div.className='cart-item';
-        div.innerHTML = `<img src="${it.img}" alt="${it.title}" /><div style=\"flex:1\"><div style=\"font-weight:700\">${it.title}</div><div class=\"meta\">₹${it.price} × ${it.qty}</div></div><div style=\"display:flex;flex-direction:column;gap:6px\"><button data-id=\"${it.id}\" class=\"btn-ghost\">+</button><button data-id=\"${it.id}\" class=\"btn-ghost\">-</button></div>`;
-        const plus = div.querySelectorAll('button')[0];
-        const minus = div.querySelectorAll('button')[1];
-        plus.addEventListener('click',()=>{ CART[it.id]++; updateCartUI(); });
-        minus.addEventListener('click',()=>{ CART[it.id]--; if(CART[it.id]<=0) delete CART[it.id]; updateCartUI(); });
-        cartContent.appendChild(div);
-      });
-      cartTotalEl.textContent = '₹' + total;
-    }
-
-    function openSidebar(){ sidebar.classList.add('open'); sidebar.setAttribute('aria-hidden','false'); }
-    function closeSidebarFn(){ sidebar.classList.remove('open'); sidebar.setAttribute('aria-hidden','true'); }
-    cartFloat.addEventListener('click',()=>openSidebar());
-    openCartBtn.addEventListener('click',()=>openSidebar());
-    closeSidebar.addEventListener('click',()=>closeSidebarFn());
-
-    searchInput.addEventListener('input',()=>{
-      const q = searchInput.value.trim().toLowerCase();
-      renderProducts(PRODUCTS.filter(p=>p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)));
-    });
-
-    renderProducts(PRODUCTS);
-    updateCartUI();
-
-    document.getElementById('checkoutBtn').addEventListener('click',()=>{
-      if(Object.keys(CART).length===0){ alert('Your cart is empty. Add items first.'); return; }
-      alert('Checkout simulated — total ' + cartTotalEl.textContent + '\n(Implement payment flow for production)');
-      CART = {}; updateCartUI(); closeSidebarFn();
-    });
-
-  </script>
-</body>
-</html>
+        card.innerHTML = `\n          <img loading="lazy" src="${p.img}" alt="${p.title}"/>\n          <div class="body">\n            <div class="title">${p.title}</div>\n            <div class="meta">${p.desc}</div>\n            <div style=\"display:flex;justify-content:space-between;align-items:center;\">\n              <div class=\"price\">₹${p.price}</
