@@ -1,37 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Dummy eCommerce - Single Product</title>
-<style>
-  body{font-family:sans-serif;margin:0;background:#f5f7fb;color:#1a1a1a;display:flex;flex-direction:column;align-items:center}
-  header{padding:20px;background:#fff;width:100%;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
-  main{padding:20px;width:100%;max-width:400px}
-  .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.05);display:flex;flex-direction:column;align-items:center}
-  .card img{width:100%;height:auto;object-fit:cover}
-  .body{padding:10px;text-align:center}
-  .title{font-weight:600;font-size:18px;margin:8px 0}
-  .desc{color:#666;margin:6px 0}
-  .price{color:#ff6f61;font-weight:700;font-size:16px;margin:6px 0}
-  .btn-primary{background:#ff6f61;color:#fff;border:none;padding:10px 16px;border-radius:6px;cursor:pointer;font-weight:600}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dummy E-commerce Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+        }
+
+        .product-card {
+            background-color: white;
+            display: inline-block;
+            padding: 20px;
+            margin: 50px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .product-card img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<header>
-  <h1>Demo Store</h1>
-</header>
+    <header>
+        <h1>My Dummy Store</h1>
+    </header>
 
-<main>
-  <div class="card">
-    <img src="https://cdn.pixabay.com/photo/2017/03/20/16/36/backpack-2169017_640.png" alt="Classic Backpack">
-    <div class="body">
-      <div class="title">Classic Backpack</div>
-      <div class="desc">Durable backpack for everyday use</div>
-      <div class="price">₹1299</div>
-      <button class="btn-primary">Add to Cart</button>
-    </div>
-  </div>
-</main>
+    <main>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/200x200.png?text=Wireless+Headphones" alt="Wireless Headphones">
+            <h2>Wireless Headphones</h2>
+            <p>Price: $49.99</p>
+            <button onclick="addToCart('Wireless Headphones')">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/200x200.png?text=Smart+Watch" alt="Smart Watch">
+            <h2>Smart Watch</h2>
+            <p>Price: $29.99</p>
+            <button onclick="addToCart('Smart Watch')">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/200x200.png?text=Leather+Backpack" alt="Leather Backpack">
+            <h2>Leather Backpack</h2>
+            <p>Price: $19.99</p>
+            <button onclick="addToCart('Leather Backpack')">Add to Cart</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 My Dummy Store</p>
+    </footer>
+
+    <script>
+        function addToCart(productName) {
+            alert(productName + " added to cart!");
+        }
+    </script>
 </body>
 </html>
