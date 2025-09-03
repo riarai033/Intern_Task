@@ -1,66 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dummy E-Commerce Store</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dummy eCommerce - Demo Store</title>
   <style>
-    body { font-family: Arial, sans-serif; background:#f5f5f5; margin:0; }
-    header { background:#0077cc; color:white; padding:20px; text-align:center; }
-    .products { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:20px; }
-    .product { background:white; border:1px solid #ddd; border-radius:10px; padding:15px; width:220px; text-align:center; }
-    .product img { width:200px; height:200px; object-fit:cover; border-radius:10px; margin-bottom:10px; }
-    .product button { background:#0077cc; color:white; border:none; padding:10px; width:100%; cursor:pointer; border-radius:5px; }
-    .product button:hover { background:#005fa3; }
-    footer { background:#333; color:white; text-align:center; padding:15px; margin-top:20px; }
+    :root{--accent:#ff6f61;--muted:#666}
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0;background:#f5f7fb;color:#1a1a1a}
+    header{background:#fff;padding:18px 24px;box-shadow:0 2px 6px rgba(15,15,15,0.06);display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo .brand{font-weight:700;font-size:18px}
+    .search{flex:1;max-width:520px;margin:0 24px}
+    .search input{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #e2e8f0}
+    main{padding:28px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+
+    .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 6px 18px rgba(16,24,40,0.06);display:flex;flex-direction:column}
+    .card img{width:100%;height:180px;object-fit:cover;display:block}
+    .card .body{padding:14px;display:flex;flex-direction:column;gap:8px}
+    .title{font-weight:600}
+    .price{color:var(--accent);font-weight:700}
+    .meta{font-size:13px;color:var(--muted)}
+    .actions{margin-top:auto;display:flex;gap:8px}
+    button{cursor:pointer;border:0;padding:8px;border-radius:8px}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-ghost{background:#fff;border:1px solid #e6eef2}
+
+    /* cart */
+    .cart{position:fixed;right:20px;bottom:20px;background:var(--accent);color:#fff;padding:12px 14px;border-radius:999px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(255,111,97,0.18)}
+    .cart .count{background:rgba(255,255,255,0.2);padding:6px 8px;border-radius:8px;font-weight:700}
+
+    /* sidebar */
+    .sidebar{position:fixed;right:0;top:0;height:100vh;width:420px;background:#fff;box-shadow:-20px 0 40px rgba(15,15,15,0.08);transform:translateX(110%);transition:transform .28s ease-in-out;display:flex;flex-direction:column}
+    .sidebar.open{transform:translateX(0)}
+    .sidebar header{padding:18px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between}
+    .sidebar .content{padding:14px;overflow:auto}
+    .cart-item{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px dashed #eef2f7}
+    .cart-item img{width:64px;height:48px;object-fit:cover;border-radius:6px}
+
+    /* responsive */
+    @media (max-width:640px){
+      header{padding:12px}
+      .search{display:none}
+      .sidebar{width:100%}
+    }
+
+    /* product quick view modal */
+    .modal{position:fixed;inset:0;background:rgba(10,12,15,0.45);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .18s}
+    .modal.open{opacity:1;pointer-events:auto}
+    .modal .box{background:#fff;border-radius:12px;max-width:880px;width:94%;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+    .modal img{width:100%;height:400px;object-fit:cover}
+    .modal .details{padding:18px}
   </style>
 </head>
 <body>
+  <header>
+    <div class="logo"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect rx="6" width="24" height="24" fill="#FF6F61"/></svg><div class="brand">Demo Store</div></div>
+    <div class="search"><input id="searchInput" placeholder="Search products..." /></div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div class="meta">Free shipping over ₹999</div>
+      <button id="openCartBtn" class="btn-ghost">Cart</button>
+    </div>
+  </header>
 
-<header>
-  <h1>My Dummy Store</h1>
-</header>
+  <main>
+    <h2 style="margin:6px 0 16px">Featured products</h2>
+    <div id="products" class="grid"></div>
+  </main>
 
-<div class="products">
-  <!-- Backpack -->
-  <div class="product">
-    <img src="https://images.pexels.com/photos/3731256/pexels-photo-3731256.jpeg" alt="Backpack">
-    <h2>Stylish Backpack</h2>
-    <p>$45</p>
-    <button>Add to Cart</button>
+  <div class="cart" id="cartFloat" title="Open cart">
+    <div style="font-weight:700">🛍️</div>
+    <div>
+      <div style="font-size:13px">Your Cart</div>
+      <div class="count" id="cartCount">0</div>
+    </div>
   </div>
 
-  <!-- Shoes -->
-  <div class="product">
-    <img src="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg" alt="Shoes">
-    <h2>Running Shoes</h2>
-    <p>$60</p>
-    <button>Add to Cart</button>
+  <aside id="sidebar" class="sidebar" aria-hidden="true">
+    <header><div style="font-weight:700">Your Cart</div><button id="closeSidebar">Close</button></header>
+    <div class="content" id="cartContent"></div>
+    <div style="padding:14px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font-size:12px;color:var(--muted)">Total</div><div id="cartTotal" style="font-weight:800">₹0</div></div>
+      <button id="checkoutBtn" class="btn-primary">Checkout</button>
+    </div>
+  </aside>
+
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <div class="box">
+      <img id="modalImg" src="" alt="product" />
+      <div class="details">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc" class="meta"></p>
+        <div style="margin-top:12px;font-weight:700" id="modalPrice"></div>
+        <div style="margin-top:16px"><button id="modalAdd" class="btn-primary">Add to cart</button></div>
+      </div>
+    </div>
   </div>
 
-  <!-- Headphones -->
-  <div class="product">
-    <img src="https://images.pexels.com/photos/159376/headphones-music-audio-sound-159376.jpeg" alt="Headphones">
-    <h2>Wireless Headphones</h2>
-    <p>$80</p>
-    <button>Add to Cart</button>
-  </div>
-</div>
+  <script>
+    const PRODUCTS = [
+      {id:1,title:'Classic Backpack',price:1299,desc:'Durable backpack for everyday use',img:'https://picsum.photos/seed/backpack/640/480'},
+      {id:2,title:'Matte Lipstick Set',price:799,desc:'Long-lasting matte lip colors (set of 3)',img:'https://picsum.photos/seed/makeup1/640/480'},
+      {id:3,title:'Wireless Earbuds',price:1999,desc:'Noise-cancelling true wireless earbuds',img:'https://picsum.photos/seed/earbuds/640/480'},
+      {id:4,title:'Smart Watch',price:4599,desc:'Fitness tracking + notifications',img:'https://picsum.photos/seed/watch/640/480'},
+      {id:5,title:'Running Shoes',price:2599,desc:'Lightweight running shoes for daily training',img:'https://picsum.photos/seed/shoes/640/480'},
+      {id:6,title:'Sunglasses',price:699,desc:'Polarized UV protection sunglasses',img:'https://picsum.photos/seed/sunglasses/640/480'}
+    ];
 
-<footer>
-  &copy; 2025 Dummy Store
-</footer>
+    const productsEl = document.getElementById('products');
+    const cartFloat = document.getElementById('cartFloat');
+    const cartCount = document.getElementById('cartCount');
+    const sidebar = document.getElementById('sidebar');
+    const cartContent = document.getElementById('cartContent');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const openCartBtn = document.getElementById('openCartBtn');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalAdd = document.getElementById('modalAdd');
+    const searchInput = document.getElementById('searchInput');
 
-<script>
-  document.querySelectorAll('.product button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const parent = btn.parentElement;
-      const name = parent.querySelector('h2').innerText;
-      const price = parent.querySelector('p').innerText;
-      alert(`${name} (${price}) added to cart!`);
+    let CART = {};
+    let lastModalProduct = null;
+
+    function renderProducts(list){
+      productsEl.innerHTML = '';
+      list.forEach(p=>{
+        const card = document.createElement('article');
+        card.className='card';
+        card.innerHTML = `\n          <img loading="lazy" src="${p.img}" alt="${p.title}"/>\n          <div class="body">\n            <div class="title">${p.title}</div>\n            <div class="meta">${p.desc}</div>\n            <div style=\"display:flex;justify-content:space-between;align-items:center;\">\n              <div class=\"price\">₹${p.price}</div>\n            </div>\n            <div class=\"actions\">\n              <button class=\"btn-ghost\" data-action=\"view\">Quick view</button>\n              <button class=\"btn-primary\" data-action=\"add\">Add to cart</button>\n            </div>\n          </div>`;
+        // attach events
+        const viewBtn = card.querySelector('[data-action=view]');
+        const addBtn = card.querySelector('[data-action=add]');
+        viewBtn.addEventListener('click',()=>openModal(p));
+        addBtn.addEventListener('click',()=>addToCart(p.id));
+        productsEl.appendChild(card);
+      })
+    }
+
+    function openModal(p){
+      lastModalProduct = p;
+      modalImg.src = p.img;
+      modalTitle.textContent = p.title;
+      modalDesc.textContent = p.desc;
+      modalPrice.textContent = '₹' + p.price;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+    }
+
+    modal.addEventListener('click',(e)=>{ if(e.target===modal) { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); } });
+    modalAdd.addEventListener('click',()=>{ if(lastModalProduct) addToCart(lastModalProduct.id); modal.classList.remove('open'); });
+
+    function addToCart(id){
+      if(!CART[id]) CART[id]=0; CART[id]+=1; updateCartUI();
+    }
+
+    function updateCartUI(){
+      const items = Object.keys(CART).map(k=> ({...PRODUCTS.find(p=>p.id==k),qty:CART[k]}));
+      cartCount.textContent = items.reduce((s,i)=>s+i.qty,0);
+      cartContent.innerHTML = '';
+      let total = 0;
+      if(items.length===0){ cartContent.innerHTML = '<div style="padding:12px;color:var(--muted)">Your cart is empty</div>'; }
+      items.forEach(it=>{
+        total += it.price * it.qty;
+        const div = document.createElement('div'); div.className='cart-item';
+        div.innerHTML = `<img src="${it.img}" alt="${it.title}" /><div style=\"flex:1\"><div style=\"font-weight:700\">${it.title}</div><div class=\"meta\">₹${it.price} × ${it.qty}</div></div><div style=\"display:flex;flex-direction:column;gap:6px\"><button data-id=\"${it.id}\" class=\"btn-ghost\">+</button><button data-id=\"${it.id}\" class=\"btn-ghost\">-</button></div>`;
+        const plus = div.querySelectorAll('button')[0];
+        const minus = div.querySelectorAll('button')[1];
+        plus.addEventListener('click',()=>{ CART[it.id]++; updateCartUI(); });
+        minus.addEventListener('click',()=>{ CART[it.id]--; if(CART[it.id]<=0) delete CART[it.id]; updateCartUI(); });
+        cartContent.appendChild(div);
+      });
+      cartTotalEl.textContent = '₹' + total;
+    }
+
+    // sidebar toggle
+    function openSidebar(){ sidebar.classList.add('open'); sidebar.setAttribute('aria-hidden','false'); }
+    function closeSidebarFn(){ sidebar.classList.remove('open'); sidebar.setAttribute('aria-hidden','true'); }
+    cartFloat.addEventListener('click',()=>openSidebar());
+    openCartBtn.addEventListener('click',()=>openSidebar());
+    closeSidebar.addEventListener('click',()=>closeSidebarFn());
+
+    // search filter
+    searchInput.addEventListener('input',()=>{
+      const q = searchInput.value.trim().toLowerCase();
+      renderProducts(PRODUCTS.filter(p=>p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)));
     });
-  });
-</script>
 
+    // initial render
+    renderProducts(PRODUCTS);
+    updateCartUI();
+
+    // small niceties
+    document.getElementById('checkoutBtn').addEventListener('click',()=>{
+      if(Object.keys(CART).length===0){ alert('Your cart is empty. Add items first.'); return; }
+      alert('Checkout simulated — total ' + cartTotalEl.textContent + '\n(Implement payment flow for production)');
+      CART = {}; updateCartUI(); closeSidebarFn();
+    });
+
+  </script>
 </body>
 </html>
