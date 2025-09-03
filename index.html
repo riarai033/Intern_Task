@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dummy eCommerce - Demo Store</title>
+<style>
+  body{font-family:sans-serif;margin:0;background:#f5f7fb;color:#1a1a1a}
+  header{padding:20px;background:#fff;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+  main{padding:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+  .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.05);display:flex;flex-direction:column}
+  .card img{width:100%;height:180px;object-fit:cover}
+  .card .body{padding:10px;flex:1;display:flex;flex-direction:column;gap:6px}
+  .title{font-weight:600}
+  .price{color:#ff6f61;font-weight:700}
+  .actions{margin-top:auto;display:flex;gap:6px}
+  button{cursor:pointer;border:0;padding:8px;border-radius:6px}
+  .btn-primary{background:#ff6f61;color:#fff}
+</style>
+</head>
+<body>
+<header>
+  <h1>Demo Store</h1>
+</header>
+<main>
+  <h2>Featured Products</h2>
+  <div id="products" class="grid"></div>
+</main>
+
+<script>
+const PRODUCTS = [
+  {id:1, title:'Classic Backpack', price:1299, desc:'Durable backpack', img:'https://cdn.pixabay.com/photo/2017/03/20/16/36/backpack-2169017_640.png'},
+  {id:2, title:'Matte Lipstick Set', price:799, desc:'Long-lasting matte lip colors', img:'https://cdn.pixabay.com/photo/2017/05/10/22/36/lipstick-2302826_640.png'},
+  {id:3, title:'Running Shoes', price:2599, desc:'Lightweight running shoes', img:'https://cdn.pixabay.com/photo/2016/03/31/18/14/shoes-1297062_640.png'}
+];
+
+const productsEl = document.getElementById('products');
+
+function renderProducts(list){
+  productsEl.innerHTML = '';
+  list.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.title}">
+      <div class="body">
+        <div class="title">${p.title}</div>
+        <div class="desc">${p.desc}</div>
+        <div class="price">₹${p.price}</div>
+        <div class="actions"><button class="btn-primary">Add to cart</button></div>
+      </div>
+    `;
+    productsEl.appendChild(card);
+  });
+}
+
+renderProducts(PRODUCTS);
+</script>
+</body>
+</html>
 
