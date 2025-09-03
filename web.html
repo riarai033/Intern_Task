@@ -27,11 +27,9 @@
     .btn-primary{background:var(--accent);color:#fff}
     .btn-ghost{background:#fff;border:1px solid #e6eef2}
 
-    /* cart */
     .cart{position:fixed;right:20px;bottom:20px;background:var(--accent);color:#fff;padding:12px 14px;border-radius:999px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(255,111,97,0.18)}
     .cart .count{background:rgba(255,255,255,0.2);padding:6px 8px;border-radius:8px;font-weight:700}
 
-    /* sidebar */
     .sidebar{position:fixed;right:0;top:0;height:100vh;width:420px;background:#fff;box-shadow:-20px 0 40px rgba(15,15,15,0.08);transform:translateX(110%);transition:transform .28s ease-in-out;display:flex;flex-direction:column}
     .sidebar.open{transform:translateX(0)}
     .sidebar header{padding:18px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between}
@@ -39,14 +37,12 @@
     .cart-item{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px dashed #eef2f7}
     .cart-item img{width:64px;height:48px;object-fit:cover;border-radius:6px}
 
-    /* responsive */
     @media (max-width:640px){
       header{padding:12px}
       .search{display:none}
       .sidebar{width:100%}
     }
 
-    /* product quick view modal */
     .modal{position:fixed;inset:0;background:rgba(10,12,15,0.45);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .18s}
     .modal.open{opacity:1;pointer-events:auto}
     .modal .box{background:#fff;border-radius:12px;max-width:880px;width:94%;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
@@ -100,12 +96,12 @@
 
   <script>
     const PRODUCTS = [
-      {id:1,title:'Classic Backpack',price:1299,desc:'Durable backpack for everyday use',img:'https://picsum.photos/seed/backpack/640/480'},
-      {id:2,title:'Matte Lipstick Set',price:799,desc:'Long-lasting matte lip colors (set of 3)',img:'https://picsum.photos/seed/makeup1/640/480'},
-      {id:3,title:'Wireless Earbuds',price:1999,desc:'Noise-cancelling true wireless earbuds',img:'https://picsum.photos/seed/earbuds/640/480'},
-      {id:4,title:'Smart Watch',price:4599,desc:'Fitness tracking + notifications',img:'https://picsum.photos/seed/watch/640/480'},
-      {id:5,title:'Running Shoes',price:2599,desc:'Lightweight running shoes for daily training',img:'https://picsum.photos/seed/shoes/640/480'},
-      {id:6,title:'Sunglasses',price:699,desc:'Polarized UV protection sunglasses',img:'https://picsum.photos/seed/sunglasses/640/480'}
+      {id:1,title:'Classic Backpack',price:1299,desc:'Durable backpack for everyday use',img:'https://via.placeholder.com/640x480.png?text=Backpack'},
+      {id:2,title:'Matte Lipstick Set',price:799,desc:'Long-lasting matte lip colors (set of 3)',img:'https://via.placeholder.com/640x480.png?text=Lipstick'},
+      {id:3,title:'Wireless Earbuds',price:1999,desc:'Noise-cancelling true wireless earbuds',img:'https://via.placeholder.com/640x480.png?text=Earbuds'},
+      {id:4,title:'Smart Watch',price:4599,desc:'Fitness tracking + notifications',img:'https://via.placeholder.com/640x480.png?text=Smart+Watch'},
+      {id:5,title:'Running Shoes',price:2599,desc:'Lightweight running shoes for daily training',img:'https://via.placeholder.com/640x480.png?text=Shoes'},
+      {id:6,title:'Sunglasses',price:699,desc:'Polarized UV protection sunglasses',img:'https://via.placeholder.com/640x480.png?text=Sunglasses'}
     ];
 
     const productsEl = document.getElementById('products');
@@ -133,7 +129,6 @@
         const card = document.createElement('article');
         card.className='card';
         card.innerHTML = `\n          <img loading="lazy" src="${p.img}" alt="${p.title}"/>\n          <div class="body">\n            <div class="title">${p.title}</div>\n            <div class="meta">${p.desc}</div>\n            <div style=\"display:flex;justify-content:space-between;align-items:center;\">\n              <div class=\"price\">₹${p.price}</div>\n            </div>\n            <div class=\"actions\">\n              <button class=\"btn-ghost\" data-action=\"view\">Quick view</button>\n              <button class=\"btn-primary\" data-action=\"add\">Add to cart</button>\n            </div>\n          </div>`;
-        // attach events
         const viewBtn = card.querySelector('[data-action=view]');
         const addBtn = card.querySelector('[data-action=add]');
         viewBtn.addEventListener('click',()=>openModal(p));
@@ -178,24 +173,20 @@
       cartTotalEl.textContent = '₹' + total;
     }
 
-    // sidebar toggle
     function openSidebar(){ sidebar.classList.add('open'); sidebar.setAttribute('aria-hidden','false'); }
     function closeSidebarFn(){ sidebar.classList.remove('open'); sidebar.setAttribute('aria-hidden','true'); }
     cartFloat.addEventListener('click',()=>openSidebar());
     openCartBtn.addEventListener('click',()=>openSidebar());
     closeSidebar.addEventListener('click',()=>closeSidebarFn());
 
-    // search filter
     searchInput.addEventListener('input',()=>{
       const q = searchInput.value.trim().toLowerCase();
       renderProducts(PRODUCTS.filter(p=>p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)));
     });
 
-    // initial render
     renderProducts(PRODUCTS);
     updateCartUI();
 
-    // small niceties
     document.getElementById('checkoutBtn').addEventListener('click',()=>{
       if(Object.keys(CART).length===0){ alert('Your cart is empty. Add items first.'); return; }
       alert('Checkout simulated — total ' + cartTotalEl.textContent + '\n(Implement payment flow for production)');
