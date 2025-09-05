@@ -123,18 +123,18 @@
   <div class="container">
     <!-- Product 1 -->
     <div class="card">
-      <img src="https://via.placeholder.com/250" alt="Product 1">
-      <h2>Product 1</h2>
-      <p>Price: ₹499</p>
-      <button onclick="addToCart('Product 1', 499)">Add to Cart</button>
+      <img src="https://m.media-amazon.com/images/I/71kxa1-0mfL._AC_UL480_FMwebp_QL65_.jpg" alt="Nike Running Shoes">
+      <h2>Nike Running Shoes</h2>
+      <p>Price: ₹4,999</p>
+      <button onclick="addToCart('Nike Running Shoes', 4999)">Add to Cart</button>
     </div>
 
     <!-- Product 2 -->
     <div class="card">
-      <img src="https://via.placeholder.com/250" alt="Product 2">
-      <h2>Product 2</h2>
-      <p>Price: ₹799</p>
-      <button onclick="addToCart('Product 2', 799)">Add to Cart</button>
+      <img src="https://m.media-amazon.com/images/I/61y2VVWcGBL._AC_UL480_FMwebp_QL65_.jpg" alt="Smart Watch">
+      <h2>Smart Watch</h2>
+      <p>Price: ₹2,999</p>
+      <button onclick="addToCart('Smart Watch', 2999)">Add to Cart</button>
     </div>
   </div>
 
@@ -160,7 +160,7 @@
     function renderCart() {
       let cartItemsDiv = document.getElementById("cartItems");
       cartItemsDiv.innerHTML = "";
-      cart.forEach((item, index) => {
+      cart.forEach((item) => {
         cartItemsDiv.innerHTML += `
           <div class="cart-item">
             <span>${item.product}</span>
