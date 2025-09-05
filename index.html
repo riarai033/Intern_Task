@@ -1,111 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TVZRPNM6');</script>
-<!-- End Google Tag Manager -->
-
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5GYS6L2N1P"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-5GYS6L2N1P');
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Store</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f8f8f8;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px;
-        }
-
-        .product {
-            background-color: white;
-            display: inline-block;
-            margin: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 250px;
-        }
-
-        .product img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        main {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Dummy Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+    }
+    header {
+      background: #007bff;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .cart {
+      position: relative;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .cart span {
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 4px 8px;
+      font-size: 14px;
+      position: absolute;
+      top: -8px;
+      right: -12px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .card img {
+      max-width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .card h2 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .card p {
+      font-size: 16px;
+      color: #333;
+    }
+    .card button {
+      background: #28a745;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .card button:hover {
+      background: #218838;
+    }
+    #cartModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 350px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+      padding: 20px;
+      overflow-y: auto;
+    }
+    #cartModal h2 {
+      margin-top: 0;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    .checkout-btn {
+      background: #007bff;
+      border: none;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVZRPNM6"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <header>
-        <h1>Welcome to My Store</h1>
-    </header>
 
-    <main>
-        <div class="product">
-            <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb" alt="T-shirt">
-            <h2>T-shirt</h2>
-            <p>Price: $49.99</p>
-            <button onclick="addToCart('T-shirt')">Add to Cart</button>
-        </div>
+  <header>
+    <h1>🛍️ My Dummy Store</h1>
+    <div class="cart" onclick="toggleCart()">
+      🛒 Cart <span id="cartCount">0</span>
+    </div>
+  </header>
 
-        <div class="product">
-            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8" alt="Laptop">
-            <h2>Gaming Laptop</h2>
-            <p>Price: $999.99</p>
-            <button onclick="addToCart('Gaming Laptop')">Add to Cart</button>
-        </div>
-    </main>
+  <div class="container">
+    <div class="card">
+      <img src="https://via.placeholder.com/250" alt="Product 1">
+      <h2>Product 1</h2>
+      <p>Price: ₹499</p>
+      <button onclick="addToCart('Product 1', 499)">Add to Cart</button>
+    </div>
 
-    <script>
-        function addToCart(productName) {
-            alert(productName + " added to your cart!");
-        }
-    </script>
+    <div class="card">
+      <img src="https://via.placeholder.com/250" alt="Product 2">
+      <h2>Product 2</h2>
+      <p>Price: ₹799</p>
+      <button onclick="addToCart('Product 2', 799)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <img src="https://via.placeholder.com/250" alt="Product 3">
+      <h2>Product 3</h2>
+      <p>Price: ₹999</p>
+      <button onclick="addToCart('Product 3', 999)">Add to Cart</button>
+    </div>
+  </div>
+
+  <div id="cartModal">
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+    <h3 id="totalPrice">Total: ₹0</h3>
+    <button class="checkout-btn">Proceed to Checkout</button>
+  </div>
+
+  <script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(product, price) {
+      cart.push({ product, price });
+      total += price;
+      document.getElementById("cartCount").innerText = cart.length;
+      renderCart();
+    }
+
+    function renderCart() {
+      let cartItemsDiv = document.getElementById("cartItems");
+      cartItemsDiv.innerHTML = "";
+      cart.forEach((item, index) => {
+        cartItemsDiv.innerHTML += `
+          <div class="cart-item">
+            <span>${item.product}</span>
+            <span>₹${item.price}</span>
+          </div>
+        `;
+      });
+      document.getElementById("totalPrice").innerText = "Total: ₹" + total;
+    }
+
+    function toggleCart() {
+      let modal = document.getElementById("cartModal");
+      modal.style.display = modal.style.display === "block" ? "none" : "block";
+    }
+  </script>
+
 </body>
 </html>
