@@ -2,54 +2,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Simple Site - Home</title>
-<style>
-body{font-family: Arial, sans-serif;line-height:1.4;margin:0;padding:0;color:#222}
-header{background:#f2f2f2;padding:12px 16px;border-bottom:1px solid #ddd}
-nav a{margin-right:10px;text-decoration:none;color:#333}
-main{padding:16px}
-.card{border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:6px;background:#fff}
-footer{padding:12px 16px;text-align:center;font-size:14px;color:#666;border-top:1px solid #eee}
-img.responsive{max-width:100%;height:auto;display:block}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Simple Site - Home</title>
+  <style>
+    body {font-family: Arial, sans-serif; line-height: 1.4; margin: 0; padding: 0; color: #222; background:#fafafa;}
+    header {background:#f2f2f2; padding:12px 16px; border-bottom:1px solid #ddd;}
+    nav a {margin-right:10px; text-decoration:none; color:#333;}
+    main {padding:16px;}
+    .card {border:1px solid #ddd; padding:12px; margin:16px 0; border-radius:6px; background:#fff;}
+    footer {padding:12px 16px; text-align:center; font-size:14px; color:#666; border-top:1px solid #eee;}
+    img.responsive {max-width:100%; height:auto; display:block;}
+  </style>
 </head>
 <body>
-<header>
-<h1 style="margin:0;font-size:20px">My Simple Website</h1>
-<nav style="margin-top:6px">
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="gallery.html">Gallery</a>
-<a href="products.html">Products</a>
-<a href="blog.html">Blog</a>
-<a href="contact.html">Contact</a>
-</nav>
-</header>
+  <header>
+    <h1 style="margin:0;font-size:20px">My Simple Website</h1>
+    <nav style="margin-top:6px">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="products.html">Products</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
+  <main>
+    <!-- Section 1 -->
+    <section class="card">
+      <h2>Welcome</h2>
+      <p>This is a dummy website which I have created for the practice purpose.</p>
+       <p> Basically this website is created to get a hands-on practice on how GTM and GA works. </p>
+      <img class="responsive" src="https://via.placeholder.com/800x300?text=Welcome+Image" alt="welcome image">
+    </section>
 
-<main>
-<section class="card">
-<h2>Welcome</h2>
-<p>This is a very simple, beginner-style website made in plain HTML. The pages are basic and use placeholder images.</p>
-<img class="responsive" src="https://via.placeholder.com/800x300?text=Welcome+Image" alt="welcome image">
-</section>
+    <!-- Section 2 -->
+    <section class="card">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="portfolio.html">My portfolio</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </section>
 
+    <!-- ✅ Extra Content for Scrolling -->
+    <section class="card">
+      <h2>About This Project</h2>
+      <p>We will learn the implementation of the tags and triggers of GTM in GA.</p>
+      <p>Also create the user defined variables and see what are in built variables.</p>
+    </section>
 
-<section class="card">
-<h3>Quick links</h3>
-<ul>
-<li><a href="portfolio.html">My portfolio</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a href="faq.html">FAQ</a></li>
-</ul>
-</section>
-</main>
+    <section class="card">
+      <h2>Sample Gallery Preview</h2>
+      <img class="responsive" src="https://via.placeholder.com/800x300?text=Gallery+Preview" alt="gallery preview">
+      <p>This is just a preview image. Visit the <a href="gallery.html">Gallery Page</a> to see more pictures.</p>
+    </section>
 
+    <section class="card">
+      <h2>Latest Blog Snippets</h2>
+      <article>
+        <h3>Post One</h3>
+        <p>Some text from the blog... <a href="blog.html">Read more</a></p>
+      </article>
+      <article>
+        <h3>Post Two</h3>
+        <p>Another short blog example... <a href="blog.html">Read more</a></p>
+      </article>
+    </section>
 
-<footer>
-©MySite
-</footer>
+    <section class="card">
+      <h2>Get In Touch</h2>
+      <p>If you want to reach me, go to the <a href="contact.html">Contact Page</a> and fill out the form.</p>
+    </section>
+  </main>
+
+  <footer>
+    © My Site
+  </footer>
 </body>
 </html>
