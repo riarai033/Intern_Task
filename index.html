@@ -1,181 +1,55 @@
+<!-- FILE: index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Dummy Store</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f8f9fa;
-    }
-    header {
-      background: #007bff;
-      color: white;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 24px;
-    }
-    .cart {
-      position: relative;
-      font-size: 18px;
-      cursor: pointer;
-    }
-    .cart span {
-      background: red;
-      color: white;
-      border-radius: 50%;
-      padding: 4px 8px;
-      font-size: 14px;
-      position: absolute;
-      top: -8px;
-      right: -12px;
-    }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .card img {
-      max-width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .card h2 {
-      font-size: 20px;
-      margin: 10px 0;
-    }
-    .card p {
-      font-size: 16px;
-      color: #333;
-    }
-    .card button {
-      background: #28a745;
-      border: none;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .card button:hover {
-      background: #218838;
-    }
-    #cartModal {
-      display: none;
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 350px;
-      height: 100%;
-      background: white;
-      box-shadow: -2px 0 8px rgba(0,0,0,0.2);
-      padding: 20px;
-      overflow-y: auto;
-    }
-    #cartModal h2 {
-      margin-top: 0;
-    }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 5px;
-    }
-    .checkout-btn {
-      background: #007bff;
-      border: none;
-      color: white;
-      width: 100%;
-      padding: 12px;
-      margin-top: 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Simple Site - Home</title>
+<style>
+body{font-family: Arial, sans-serif;line-height:1.4;margin:0;padding:0;color:#222}
+header{background:#f2f2f2;padding:12px 16px;border-bottom:1px solid #ddd}
+nav a{margin-right:10px;text-decoration:none;color:#333}
+main{padding:16px}
+.card{border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:6px;background:#fff}
+footer{padding:12px 16px;text-align:center;font-size:14px;color:#666;border-top:1px solid #eee}
+img.responsive{max-width:100%;height:auto;display:block}
+</style>
 </head>
 <body>
+<header>
+<h1 style="margin:0;font-size:20px">My Simple Website</h1>
+<nav style="margin-top:6px">
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="gallery.html">Gallery</a>
+<a href="products.html">Products</a>
+<a href="blog.html">Blog</a>
+<a href="contact.html">Contact</a>
+</nav>
+</header>
 
-  <header>
-    <h1>🛍️ My Dummy Store</h1>
-    <div class="cart" onclick="toggleCart()">
-      🛒 Cart <span id="cartCount">0</span>
-    </div>
-  </header>
 
-  <div class="container">
-    <!-- Product 1 -->
-     <div class="card">
-            <img src="https://via.placeholder.com/250" alt="T-Shirt">
-            <h2>T-Shirt</h2>
-            <p>Price: ₹499</p>
-             <button onclick="addToCart('T-Shirt', 499)">Add to Cart</button>
-        </div>
+<main>
+<section class="card">
+<h2>Welcome</h2>
+<p>This is a very simple, beginner-style website made in plain HTML. The pages are basic and use placeholder images.</p>
+<img class="responsive" src="https://via.placeholder.com/800x300?text=Welcome+Image" alt="welcome image">
+</section>
 
-    <!-- Product 2 -->
-    <div class="card">
-      <img src="https://m.media-amazon.com/images/I/61y2VVWcGBL._AC_UL480_FMwebp_QL65_.jpg" alt="Smart Watch">
-      <h2>Smart Watch</h2>
-      <p>Price: ₹2,999</p>
-      <button onclick="addToCart('Smart Watch', 2999)">Add to Cart</button>
-    </div>
-  </div>
 
-  <!-- Cart Modal -->
-  <div id="cartModal">
-    <h2>Your Cart</h2>
-    <div id="cartItems"></div>
-    <h3 id="totalPrice">Total: ₹0</h3>
-    <button class="checkout-btn">Proceed to Checkout</button>
-  </div>
+<section class="card">
+<h3>Quick links</h3>
+<ul>
+<li><a href="portfolio.html">My portfolio</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="faq.html">FAQ</a></li>
+</ul>
+</section>
+</main>
 
-  <script>
-    let cart = [];
-    let total = 0;
 
-    function addToCart(product, price) {
-      cart.push({ product, price });
-      total += price;
-      document.getElementById("cartCount").innerText = cart.length;
-      renderCart();
-    }
-
-    function renderCart() {
-      let cartItemsDiv = document.getElementById("cartItems");
-      cartItemsDiv.innerHTML = "";
-      cart.forEach((item) => {
-        cartItemsDiv.innerHTML += `
-          <div class="cart-item">
-            <span>${item.product}</span>
-            <span>₹${item.price}</span>
-          </div>
-        `;
-      });
-      document.getElementById("totalPrice").innerText = "Total: ₹" + total;
-    }
-
-    function toggleCart() {
-      let modal = document.getElementById("cartModal");
-      modal.style.display = modal.style.display === "block" ? "none" : "block";
-    }
-  </script>
-
+<footer>
+©MySite
+</footer>
 </body>
 </html>
