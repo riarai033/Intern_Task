@@ -1,45 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TVZRPNM6');</script>
+
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){
+w[l]=w[l]||[];
+w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+j.async=true;
+j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TVZRPNM6');
+</script>
 <!-- End Google Tag Manager -->
-  
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Gallery - My Simple Site</title>
+
 <style>
-body{font-family: Arial;margin:0}
-.grid{display:flex;flex-wrap:wrap;gap:8px;padding:12px}
-.grid img{width:calc(33% - 8px);border:1px solid #ddd;padding:4px;background:#fff}
-header,footer{padding:12px 16px;background:#f2f2f2}
+body{
+  font-family: Arial;
+  margin:0;
+}
+
+header,footer{
+  padding:12px 16px;
+  background:#f2f2f2;
+}
+
+.grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  padding:12px;
+}
+
+.product{
+  width:calc(33% - 16px);
+  border:1px solid #ddd;
+  padding:10px;
+  background:#fff;
+}
+
+.product img,
+.product video{
+  width:100%;
+  margin-bottom:8px;
+}
+
+.price{
+  font-weight:bold;
+  margin:6px 0;
+}
+
+.qty{
+  width:60px;
+}
+
+button{
+  margin-top:8px;
+  padding:6px 10px;
+  cursor:pointer;
+}
 </style>
+
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVZRPNM6"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVZRPNM6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 <!-- End Google Tag Manager (noscript) -->
-  
+
 <header>
 <h1 style="margin:0">Gallery</h1>
-<nav style="margin-top:6px"><a href="index.html">Home</a></nav>
+<nav style="margin-top:6px">
+<a href="index.html">Home</a>
+</nav>
 </header>
+
 <main>
+
 <div class="grid">
-<img src="https://via.placeholder.com/400x300?text=Photo+1" alt="photo1">
-<img src="https://via.placeholder.com/400x300?text=Photo+2" alt="photo2">
-<img src="https://via.placeholder.com/400x300?text=Photo+3" alt="photo3">
-<img src="https://via.placeholder.com/400x300?text=Photo+4" alt="photo4">
-<img src="https://via.placeholder.com/400x300?text=Photo+5" alt="photo5">
-<img src="https://via.placeholder.com/400x300?text=Photo+6" alt="photo6">
+
+  <!-- PRODUCT 1 -->
+  <div class="product">
+    <img src="download.jpg" alt="Product 1">
+
+    <video controls>
+      <source src="sample-video.mp4" type="video/mp4">
+    </video>
+
+    <div class="price">₹499</div>
+
+    Quantity:
+    <input type="number" class="qty" value="1" min="1">
+
+    <br>
+
+    <button onclick="addToCart('Product 1', 499, this)">
+      Add to Cart
+    </button>
+  </div>
+
+  <!-- PRODUCT 2 -->
+  <div class="product">
+    <img src="download (1).jpg" alt="Product 2">
+
+    <video controls>
+      <source src="sample-video.mp4" type="video/mp4">
+    </video>
+
+    <div class="price">₹799</div>
+
+    Quantity:
+    <input type="number" class="qty" value="1" min="1">
+
+    <br>
+
+    <button onclick="addToCart('Product 2', 799, this)">
+      Add to Cart
+    </button>
+  </div>
+
+  <!-- PRODUCT 3 -->
+  <div class="product">
+    <img src="download (2).jpg" alt="Product 3">
+
+    <div class="price">₹999</div>
+
+    Quantity:
+    <input type="number" class="qty" value="1" min="1">
+
+    <br>
+
+    <button onclick="addToCart('Product 3', 999, this)">
+      Add to Cart
+    </button>
+  </div>
+
 </div>
+
 </main>
+
 <footer>© My Site</footer>
+
+<script>
+function addToCart(productName, price, btn){
+  var qty = btn.parentElement.querySelector('.qty').value;
+  var total = price * qty;
+
+  alert(
+    productName + " added to cart\n" +
+    "Quantity: " + qty + "\n" +
+    "Total Price: ₹" + total
+  );
+
+  // For GA4 / GTM later
+  dataLayer.push({
+    event: "add_to_cart",
+    product_name: productName,
+    price: price,
+    quantity: qty,
+    total_price: total
+  });
+}
+</script>
+
 </body>
 </html>
-
