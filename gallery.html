@@ -66,6 +66,13 @@ button{
   padding:6px 10px;
   cursor:pointer;
 }
+
+.checkout{
+  background:#000;
+  color:#fff;
+  padding:10px 16px;
+  margin:16px;
+}
 </style>
 
 </head>
@@ -76,7 +83,6 @@ button{
 <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVZRPNM6"
 height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
-<!-- End Google Tag Manager (noscript) -->
 
 <header>
 <h1 style="margin:0">Gallery</h1>
@@ -89,12 +95,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 
 <div class="grid">
 
-  <!-- PRODUCT 1 -->
+  <!-- PRODUCT -->
   <div class="product">
     <img src="download.jpg" alt="Product 1">
 
-    <video controls>
+    <!-- FIXED VIDEO -->
+    <video controls muted playsinline>
       <source src="sample-video.mp4" type="video/mp4">
+      Your browser does not support video.
     </video>
 
     <div class="price">₹499</div>
@@ -109,67 +117,57 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </button>
   </div>
 
-  <!-- PRODUCT 2 -->
-  <div class="product">
-    <img src="download (1).jpg" alt="Product 2">
-
-    <video controls>
-      <source src="sample-video.mp4" type="video/mp4">
-    </video>
-
-    <div class="price">₹799</div>
-
-    Quantity:
-    <input type="number" class="qty" value="1" min="1">
-
-    <br>
-
-    <button onclick="addToCart('Product 2', 799, this)">
-      Add to Cart
-    </button>
-  </div>
-
-  <!-- PRODUCT 3 -->
-  <div class="product">
-    <img src="download (2).jpg" alt="Product 3">
-
-    <div class="price">₹999</div>
-
-    Quantity:
-    <input type="number" class="qty" value="1" min="1">
-
-    <br>
-
-    <button onclick="addToCart('Product 3', 999, this)">
-      Add to Cart
-    </button>
-  </div>
-
 </div>
+
+<!-- CHECKOUT BUTTON -->
+<button class="checkout" onclick="checkout()">
+  Proceed to Checkout
+</button>
 
 </main>
 
 <footer>© My Site</footer>
 
 <script>
+let cartTotal = 0;
+
 function addToCart(productName, price, btn){
-  var qty = btn.parentElement.querySelector('.qty').value;
-  var total = price * qty;
+  let qty = parseInt(btn.parentElement.querySelector('.qty').value);
+  let total = price * qty;
+
+  cartTotal += total;
 
   alert(
     productName + " added to cart\n" +
     "Quantity: " + qty + "\n" +
-    "Total Price: ₹" + total
+    "Item Total: ₹" + total
   );
 
-  // For GA4 / GTM later
+  // GTM / GA4 event
   dataLayer.push({
     event: "add_to_cart",
     product_name: productName,
     price: price,
     quantity: qty,
-    total_price: total
+    value: total
   });
+}
+
+function checkout(){
+  if(cartTotal === 0){
+    alert("Your cart is empty");
+    return;
+  }
+
+  alert("Checkout successful!\nTotal Amount: ₹" + cartTotal);
+
+  // GA4 Checkout Event
+  dataLayer.push({
+    event: "begin_checkout",
+    value: cartTotal
+  });
+
+  cartTotal = 0;
 }
 </script>
 
