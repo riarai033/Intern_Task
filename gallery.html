@@ -46,8 +46,7 @@ header,footer{
   background:#fff;
 }
 
-.product img,
-.product video{
+.product img{
   width:100%;
   margin-bottom:8px;
 }
@@ -99,12 +98,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
   <div class="product">
     <img src="download.jpg" alt="Product 1">
 
-    <!-- FIXED VIDEO -->
-    <video controls muted playsinline>
-      <source src="sample-video.mp4" type="video/mp4">
-      Your browser does not support video.
-    </video>
-
     <div class="price">₹499</div>
 
     Quantity:
@@ -143,7 +136,7 @@ function addToCart(productName, price, btn){
     "Item Total: ₹" + total
   );
 
-  // GTM / GA4 event
+  // GA4 / GTM event
   dataLayer.push({
     event: "add_to_cart",
     product_name: productName,
